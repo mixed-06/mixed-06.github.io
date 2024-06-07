@@ -8,7 +8,8 @@
         .iframe-container {
             position: relative;
             width: 100%;
-            height: 100vh; /* Adjust height as needed */
+            height: 100vh; /* Full viewport height */
+            overflow: hidden;
         }
         .iframe-container iframe {
             width: 100%;
@@ -21,61 +22,17 @@
             left: 0;
             width: 100%;
             height: 32px; /* Adjust this value to ensure the watermark is covered */
-            background: green;
+            background: blue;
         }
     </style>
 </head>
 <body>
-    <div class="iframe-container" id="iframe-container">
+    <div class="iframe-container">
         <iframe
             src="https://www.chatbase.co/chatbot-iframe/Inr3kTcTUO5tDCEe8a1QU"
             frameborder="0"
         ></iframe>
         <div class="overlay"></div>
     </div>
-    <script>
-        const iframeContainer = document.getElementById('iframe-container');
-
-        function adjustViewport() {
-            // Add a class to the body to indicate the keyboard is open
-            document.body.classList.add('keyboard-open');
-        }
-
-        function resetViewport() {
-            // Remove the class when the keyboard is closed
-            document.body.classList.remove('keyboard-open');
-            // Force the iframe container to resize properly
-            iframeContainer.style.height = '100vh';
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-            }, 100);
-        }
-
-        // Listen for focus and blur events on input elements inside the iframe
-        window.addEventListener('message', (event) => {
-            if (event.data === 'focus') {
-                adjustViewport();
-            } else if (event.data === 'blur') {
-                resetViewport();
-            }
-        });
-
-        // Inject script to handle focus and blur events inside the iframe
-        const iframe = document.querySelector('iframe');
-        iframe.onload = () => {
-            iframe.contentWindow.postMessage(`
-                <script>
-                    document.querySelectorAll('input, textarea').forEach(element => {
-                        element.addEventListener('focus', () => {
-                            parent.postMessage('focus', '*');
-                        });
-                        element.addEventListener('blur', () => {
-                            parent.postMessage('blur', '*');
-                        });
-                    });
-                </script>
-            `, '*');
-        };
-    </script>
 </body>
 </html>
