@@ -20,8 +20,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 30px; /* Adjust this value to ensure the watermark is covered */
-            background: white;
+            height: 32px; /* Adjust this value to ensure the watermark is covered */
+            background: orange;
         }
     </style>
 </head>
@@ -33,5 +33,19 @@
         ></iframe>
         <div class="overlay"></div>
     </div>
+    <script>
+        // Function to reset scroll position
+        function resetScrollPosition() {
+            setTimeout(() => {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }, 100); // Timeout to ensure the keyboard is completely dismissed
+        }
+
+        // Listen for focusout events on all input elements
+        document.querySelectorAll('input, textarea').forEach(element => {
+            element.addEventListener('focusout', resetScrollPosition);
+        });
+    </script>
 </body>
 </html>
