@@ -1,44 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>Embed Iframe</title>
-    <style>
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            height: 100vh; /* Full viewport height */
-            overflow: hidden;
-        }
-        .iframe-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 32px; /* Adjust this value to ensure the watermark is covered */
-            background: #004A87;
-        }
-        /* CSS rule to handle input fields on iOS */
-        @supports (-webkit-overflow-scrolling: touch) {
-            input {
-                font-size: 16px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="iframe-container">
-        <iframe
-            src="https://www.chatbase.co/chatbot-iframe/AVYElud_c2kX2CwA7aUjv"
-            frameborder="0"
-        ></iframe>
-        <div class="overlay"></div>
-    </div>
-</body>
-</html>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">  
+    <title>Embed Iframe</title>  
+    <style>  
+        .iframe-container {  
+            position: relative;  
+            width: 100%;  
+            height: 100vh;  
+            overflow: hidden;  
+        }  
+        .iframe-container iframe {  
+            width: 100%;  
+            height: 100%;  
+            border: none;  
+        }  
+        .overlay {  
+            position: absolute;  
+            bottom: 0;  
+            left: 0;  
+            width: 100%;  
+            height: 32px;  
+            background: #004A87;  
+        }  
+        .input-overlay {  
+            position: absolute;  
+            bottom: 46px;  
+            left: 5px;  
+            width: calc(100% - 10px);  
+            height: 48px;  
+            background: rgba(220, 220, 220, 0.5); /* Lighter grey with some transparency */  
+            border-radius: 5px;  
+            pointer-events: none;  
+            padding: 0 3px;  
+            box-sizing: border-box;  
+        }  
+        @supports (-webkit-overflow-scrolling: touch) {  
+            input, textarea {  
+                font-size: 16px;  
+            }  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="iframe-container">  
+        <iframe  
+            src="https://www.chatbase.co/chatbot-iframe/AVYElud_c2kX2CwA7aUjv"  
+            frameborder="0"  
+        ></iframe>  
+        <div class="input-overlay"></div>  
+        <div class="overlay"></div>  
+    </div>  
+</body>  
+</html>  
