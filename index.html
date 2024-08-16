@@ -68,52 +68,35 @@
         document.addEventListener('DOMContentLoaded', function() {  
             const curtain = document.querySelector('.safety-curtain');  
             const iframe = document.getElementById('contentIframe');  
-            const firstLoadTimeKey = 'firstLoadTime';  
-            const totalDelay = 6000; // 3 seconds before showing + 3 seconds showing  
-            const showCurtainDelay = 3000; // Delay before curtain appears  
-  
-            // Get the first load timestamp from localStorage  
-            let firstLoadTime = localStorage.getItem(firstLoadTimeKey);  
-  
-            if (!firstLoadTime) {  
-                // If there's no timestamp, this is the first visit  
-                firstLoadTime = Date.now();  
-                localStorage.setItem(firstLoadTimeKey, firstLoadTime);  
-            }  
-  
-            // Calculate the time since first load  
-            const timeSinceFirstLoad = Date.now() - parseInt(firstLoadTime, 10);  
+            const showCurtainDelay = 3000; // 3 seconds before showing  
+            const displayDuration = 3000; // 3 seconds displaying  
   
             const refreshIframe = () => {  
                 // Reload the iframe content  
                 iframe.src = iframe.src;  
             };  
   
-            if (timeSinceFirstLoad >= totalDelay) {  
-                // If more than totalDelay seconds have passed, ensure the curtain is hidden  
+            const startCycle = () => {  
+                // Hide the curtain initially  
                 curtain.style.display = 'none';  
-                refreshIframe();  
-            } else if (timeSinceFirstLoad >= showCurtainDelay) {  
-                // If more than 3 seconds have passed, show the curtain  
-                curtain.style.display = 'block';  
   
-                // Set a timeout for any remaining time to hide the curtain after showing it  
-                setTimeout(() => {  
-                    curtain.style.display = 'none';  
-                    refreshIframe();  
-                }, totalDelay - timeSinceFirstLoad);  
-            } else {  
-                // If less than 3 seconds have passed, set a timeout to show the curtain  
+                // Set a timeout to show the curtain  
                 setTimeout(() => {  
                     curtain.style.display = 'block';  
   
-                    // Then set another timeout to hide it after 3 seconds  
+                    // Set another timeout to hide the curtain and refresh the iframe  
                     setTimeout(() => {  
                         curtain.style.display = 'none';  
                         refreshIframe();  
-                    }, 3000);  
-                }, showCurtainDelay - timeSinceFirstLoad);  
-            }  
+  
+                        // Start the cycle again  
+                        startCycle();  
+                    }, displayDuration);  
+                }, showCurtainDelay);  
+            };  
+  
+            // Start the initial cycle  
+            startCycle();  
         });  
     </script>  
 </body>  
