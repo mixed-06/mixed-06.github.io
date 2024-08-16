@@ -58,6 +58,7 @@
         <iframe  
             src="https://www.chatbase.co/chatbot-iframe/AVYElud_c2kX2CwA7aUjv"  
             frameborder="0"  
+            id="contentIframe"  
         ></iframe>  
         <div class="input-overlay"></div>  
         <div class="overlay"></div>  
@@ -66,6 +67,7 @@
     <script>  
         document.addEventListener('DOMContentLoaded', function() {  
             const curtain = document.querySelector('.safety-curtain');  
+            const iframe = document.getElementById('contentIframe');  
             const firstLoadTimeKey = 'firstLoadTime';  
             const totalDelay = 6000; // 3 seconds before showing + 3 seconds showing  
             const showCurtainDelay = 3000; // Delay before curtain appears  
@@ -82,9 +84,15 @@
             // Calculate the time since first load  
             const timeSinceFirstLoad = Date.now() - parseInt(firstLoadTime, 10);  
   
+            const refreshIframe = () => {  
+                // Reload the iframe content  
+                iframe.src = iframe.src;  
+            };  
+  
             if (timeSinceFirstLoad >= totalDelay) {  
                 // If more than totalDelay seconds have passed, ensure the curtain is hidden  
                 curtain.style.display = 'none';  
+                refreshIframe();  
             } else if (timeSinceFirstLoad >= showCurtainDelay) {  
                 // If more than 3 seconds have passed, show the curtain  
                 curtain.style.display = 'block';  
@@ -92,6 +100,7 @@
                 // Set a timeout for any remaining time to hide the curtain after showing it  
                 setTimeout(() => {  
                     curtain.style.display = 'none';  
+                    refreshIframe();  
                 }, totalDelay - timeSinceFirstLoad);  
             } else {  
                 // If less than 3 seconds have passed, set a timeout to show the curtain  
@@ -101,6 +110,7 @@
                     // Then set another timeout to hide it after 3 seconds  
                     setTimeout(() => {  
                         curtain.style.display = 'none';  
+                        refreshIframe();  
                     }, 3000);  
                 }, showCurtainDelay - timeSinceFirstLoad);  
             }  
