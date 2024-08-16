@@ -44,7 +44,7 @@
             height: 100vh;  
             background-color: blue;  
             z-index: 9999;  
-            display: none;  
+            display: block; /* Initially visible */  
         }  
         @supports (-webkit-overflow-scrolling: touch) {  
             input, textarea {  
@@ -67,18 +67,18 @@
         document.addEventListener('DOMContentLoaded', function() {  
             const curtain = document.querySelector('.safety-curtain');  
   
-            // Check if the curtain should be visible  
-            const curtainVisible = localStorage.getItem('curtainVisible');  
+            // Check if the content has been permanently blocked  
+            const contentBlocked = localStorage.getItem('contentBlocked');  
   
-            if (!curtainVisible || curtainVisible === 'true') {  
-                // Show the curtain immediately  
+            if (!contentBlocked) {  
+                // Show the curtain if it hasn't been blocked yet  
                 curtain.style.display = 'block';  
   
-                // Set a timeout to hide the curtain after 10 seconds  
-                setTimeout(() => {  
-                    curtain.style.display = 'none';  
-                    localStorage.setItem('curtainVisible', 'false');  
-                }, 10000);  
+                // After showing the curtain, mark the content as blocked  
+                localStorage.setItem('contentBlocked', 'true');  
+            } else {  
+                // Keep the curtain visible if content is already blocked  
+                curtain.style.display = 'block';  
             }  
         });  
     </script>  
