@@ -44,7 +44,16 @@
             height: 100vh;  
             background-color: blue;  
             z-index: 9999;  
-            display: none; /* Initially hidden */  
+            display: none;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            color: white;  
+            font-size: 2em;  
+            font-weight: bold;  
+            text-align: center;  
+            padding: 20px;  
+            box-sizing: border-box;  
         }  
         @supports (-webkit-overflow-scrolling: touch) {  
             input, textarea {  
@@ -63,7 +72,9 @@
         <div class="input-overlay"></div>  
         <div class="overlay"></div>  
     </div>  
-    <div class="safety-curtain"></div>  
+    <div class="safety-curtain">  
+        "To be or not to be, that is the question." – William Shakespeare  
+    </div>  
     <script>  
         document.addEventListener('DOMContentLoaded', function() {  
             const curtain = document.querySelector('.safety-curtain');  
