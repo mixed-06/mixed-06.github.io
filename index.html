@@ -66,19 +66,29 @@
     <script>  
         document.addEventListener('DOMContentLoaded', function() {  
             const curtain = document.querySelector('.safety-curtain');  
+            const firstLoadTimeKey = 'firstLoadTime';  
+            const tenSeconds = 10000;  
   
-            // Check if the content has been permanently blocked  
-            const contentBlocked = localStorage.getItem('contentBlocked');  
+            // Get the first load timestamp from localStorage  
+            let firstLoadTime = localStorage.getItem(firstLoadTimeKey);  
   
-            if (!contentBlocked) {  
-                // Show the curtain if it hasn't been blocked yet  
-                curtain.style.display = 'block';  
+            if (!firstLoadTime) {  
+                // If there's no timestamp, this is the first visit  
+                firstLoadTime = Date.now();  
+                localStorage.setItem(firstLoadTimeKey, firstLoadTime);  
+            }  
   
-                // After showing the curtain, mark the content as blocked  
-                localStorage.setItem('contentBlocked', 'true');  
+            // Calculate the time since first load  
+            const timeSinceFirstLoad = Date.now() - parseInt(firstLoadTime, 10);  
+  
+            if (timeSinceFirstLoad >= tenSeconds) {  
+                // If more than 10 seconds have passed, hide the curtain  
+                curtain.style.display = 'none';  
             } else {  
-                // Keep the curtain visible if content is already blocked  
-                curtain.style.display = 'block';  
+                // Otherwise, set a timeout to hide the curtain after the remaining time  
+                setTimeout(() => {  
+                    curtain.style.display = 'none';  
+                }, tenSeconds - timeSinceFirstLoad);  
             }  
         });  
     </script>  
