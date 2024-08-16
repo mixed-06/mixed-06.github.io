@@ -45,7 +45,7 @@
             background-color: blue;  
             z-index: 9999;  
             display: none;  
-            display: flex;  
+            flex-direction: column;  
             justify-content: center;  
             align-items: center;  
             color: white;  
@@ -93,7 +93,7 @@
   
                 // Set a timeout to show the curtain  
                 setTimeout(() => {  
-                    curtain.style.display = 'block';  
+                    curtain.style.display = 'flex';  
   
                     // Set another timeout to hide the curtain and refresh the iframe  
                     setTimeout(() => {  
