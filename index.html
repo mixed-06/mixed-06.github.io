@@ -44,7 +44,7 @@
             height: 100vh;  
             background-color: blue;  
             z-index: 9999;  
-            display: block; /* Initially visible */  
+            display: none; /* Initially hidden */  
         }  
         @supports (-webkit-overflow-scrolling: touch) {  
             input, textarea {  
@@ -67,7 +67,8 @@
         document.addEventListener('DOMContentLoaded', function() {  
             const curtain = document.querySelector('.safety-curtain');  
             const firstLoadTimeKey = 'firstLoadTime';  
-            const tenSeconds = 10000;  
+            const totalDelay = 6000; // 3 seconds before showing + 3 seconds showing  
+            const showCurtainDelay = 3000; // Delay before curtain appears  
   
             // Get the first load timestamp from localStorage  
             let firstLoadTime = localStorage.getItem(firstLoadTimeKey);  
@@ -81,14 +82,27 @@
             // Calculate the time since first load  
             const timeSinceFirstLoad = Date.now() - parseInt(firstLoadTime, 10);  
   
-            if (timeSinceFirstLoad >= tenSeconds) {  
-                // If more than 10 seconds have passed, hide the curtain  
+            if (timeSinceFirstLoad >= totalDelay) {  
+                // If more than totalDelay seconds have passed, ensure the curtain is hidden  
                 curtain.style.display = 'none';  
-            } else {  
-                // Otherwise, set a timeout to hide the curtain after the remaining time  
+            } else if (timeSinceFirstLoad >= showCurtainDelay) {  
+                // If more than 3 seconds have passed, show the curtain  
+                curtain.style.display = 'block';  
+  
+                // Set a timeout for any remaining time to hide the curtain after showing it  
                 setTimeout(() => {  
                     curtain.style.display = 'none';  
-                }, tenSeconds - timeSinceFirstLoad);  
+                }, totalDelay - timeSinceFirstLoad);  
+            } else {  
+                // If less than 3 seconds have passed, set a timeout to show the curtain  
+                setTimeout(() => {  
+                    curtain.style.display = 'block';  
+  
+                    // Then set another timeout to hide it after 3 seconds  
+                    setTimeout(() => {  
+                        curtain.style.display = 'none';  
+                    }, 3000);  
+                }, showCurtainDelay - timeSinceFirstLoad);  
             }  
         });  
     </script>  
