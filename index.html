@@ -44,7 +44,7 @@
             height: 100vh;  
             background-color: blue;  
             z-index: 9999;  
-            display: none; /* Initially hidden */  
+            display: none;  
         }  
         @supports (-webkit-overflow-scrolling: touch) {  
             input, textarea {  
@@ -66,16 +66,20 @@
     <script>  
         document.addEventListener('DOMContentLoaded', function() {  
             const curtain = document.querySelector('.safety-curtain');  
-              
-            // Show the curtain after 1 second  
-            setTimeout(() => {  
+  
+            // Check if the curtain should be visible  
+            const curtainVisible = localStorage.getItem('curtainVisible');  
+  
+            if (!curtainVisible || curtainVisible === 'true') {  
+                // Show the curtain immediately  
                 curtain.style.display = 'block';  
-                  
-                // Hide the curtain after 10 seconds  
+  
+                // Set a timeout to hide the curtain after 10 seconds  
                 setTimeout(() => {  
                     curtain.style.display = 'none';  
+                    localStorage.setItem('curtainVisible', 'false');  
                 }, 10000);  
-            }, 1000);  
+            }  
         });  
     </script>  
 </body>  
