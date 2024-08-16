@@ -49,16 +49,23 @@
             display: flex;  
             justify-content: center;  
             align-items: center;  
+            box-sizing: border-box;  
+            overflow: hidden;  
+        }  
+        .curtain-content {  
+            width: 90%;  
+            height: 90%;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
             color: white;  
             font-size: 2em;  
             font-weight: bold;  
             text-align: center;  
-            padding: 20px;  
-            box-sizing: border-box;  
             font-family: 'Roboto', sans-serif;  
             border: 5px solid white; /* White border */  
             border-radius: 20px; /* Rounded corners */  
-            overflow: hidden; /* Ensures content doesn't overflow the rounded edges */  
+            box-sizing: border-box;  
         }  
         @supports (-webkit-overflow-scrolling: touch) {  
             input, textarea {  
@@ -78,7 +85,9 @@
         <div class="overlay"></div>  
     </div>  
     <div class="safety-curtain">  
-        "To be or not to be, that is the question." – William Shakespeare  
+        <div class="curtain-content">  
+            "To be or not to be, that is the question." – William Shakespeare  
+        </div>  
     </div>  
     <script>  
         document.addEventListener('DOMContentLoaded', function() {  
