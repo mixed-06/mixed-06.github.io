@@ -4,7 +4,6 @@
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">  
     <title>Embed Iframe</title>  
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
     <style>  
         .iframe-container {  
             position: relative;  
@@ -37,36 +36,6 @@
             padding: 0 3px;  
             box-sizing: border-box;  
         }  
-        .safety-curtain {  
-            position: fixed;  
-            top: 0;  
-            left: 0;  
-            width: 100%;  
-            height: 100vh;  
-            background-color: #004B87; /* Updated color */  
-            z-index: 9999;  
-            display: none;  
-            display: flex;  
-            justify-content: center;  
-            align-items: center;  
-            overflow: hidden;  
-        }  
-        .curtain-content {  
-            width: 85%; /* Slightly smaller to add more breathing room */  
-            height: 85%; /* Slightly smaller to add more breathing room */  
-            display: flex;  
-            justify-content: center;  
-            align-items: center;  
-            color: white;  
-            font-size: 1.5em; /* Reduced font size */  
-            font-weight: bold;  
-            text-align: center;  
-            font-family: 'Roboto', sans-serif;  
-            border: 3px solid white; /* Thinner white border */  
-            border-radius: 20px; /* Rounded corners */  
-            padding: 20px; /* Increased padding for more space */  
-            box-sizing: border-box;  
-        }  
         @supports (-webkit-overflow-scrolling: touch) {  
             input, textarea {  
                 font-size: 16px;  
@@ -77,51 +46,25 @@
 <body>  
     <div class="iframe-container">  
         <iframe  
-            src="https://www.chatbase.co/chatbot-iframe/Inr3kTcTUO5tDCEe8a1QU"  
+            src="https://www.chatbase.co/chatbot-iframe/AVYElud_c2kX2CwA7aUjv"  
             frameborder="0"  
             id="contentIframe"  
         ></iframe>  
         <div class="input-overlay"></div>  
         <div class="overlay"></div>  
     </div>  
-    <div class="safety-curtain">  
-        <div class="curtain-content">  
-            Oops looks like I've ran out of ideas for the moment! Check back later & I'll see if I can help.  
-        </div>  
-    </div>  
     <script>  
         document.addEventListener('DOMContentLoaded', function() {  
-            const curtain = document.querySelector('.safety-curtain');  
             const iframe = document.getElementById('contentIframe');  
-            const showCurtainDelay = 3000; // 3 seconds before showing  
-            const displayDuration = 3000; // 3 seconds displaying  
+            const refreshInterval = 5000; // Set refresh interval to 5 seconds (5000 milliseconds)  
   
             const refreshIframe = () => {  
                 // Reload the iframe content  
                 iframe.src = iframe.src;  
             };  
   
-            const startCycle = () => {  
-                // Hide the curtain initially  
-                curtain.style.display = 'none';  
-  
-                // Set a timeout to show the curtain  
-                setTimeout(() => {  
-                    curtain.style.display = 'flex';  
-  
-                    // Set another timeout to hide the curtain and refresh the iframe  
-                    setTimeout(() => {  
-                        curtain.style.display = 'none';  
-                        refreshIframe();  
-  
-                        // Start the cycle again  
-                        startCycle();  
-                    }, displayDuration);  
-                }, showCurtainDelay);  
-            };  
-  
-            // Start the initial cycle  
-            startCycle();  
+            // Set an interval to refresh the iframe content  
+            setInterval(refreshIframe, refreshInterval);  
         });  
     </script>  
 </body>  
